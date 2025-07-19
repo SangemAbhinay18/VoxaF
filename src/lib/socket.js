@@ -5,37 +5,37 @@ import express from "express";
 const app = express();
 const server = http.createServer(app);
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://voxafrontend.vercel.app"
+];
+
 const io = new Server(server, {
   cors: {
-    origin: [
-      "http://localhost:5173",                  // Dev frontend
-      "https://voxafrontend.vercel.app/"     // ✅ Your Vercel frontend
-    ],
-    credentials: true                          // ✅ Allow cookies if needed
-  }
+    origin: allowedOrigins,
+    credentials: true,
+  },
 });
 
 // Store online users
 const userSocketMap = {};
 
-// Helper to get a user's socket ID
-export function getRecieverSocketId(userId) {
-  return userSocketMap[userId];
-}
-
 io.on("connection", (socket) => {
-  console.log("A user connected: ", socket.id);
-
+  console.log("A user connected:", socket.id);
   const userId = socket.handshake.query.userId;
   if (userId) userSocketMap[userId] = socket.id;
 
   io.emit("getOnlineUsers", Object.keys(userSocketMap));
 
   socket.on("disconnect", () => {
-    console.log("A user disconnected: ", socket.id);
+    console.log("A user disconnected:", socket.id);
     delete userSocketMap[userId];
     io.emit("getOnlineUsers", Object.keys(userSocketMap));
   });
 });
+
+export function getRecieverSocketId(userId) {
+  return userSocketMap[userId];
+}
 
 export { io, app, server };
