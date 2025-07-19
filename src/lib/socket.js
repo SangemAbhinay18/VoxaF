@@ -7,7 +7,7 @@ const server = http.createServer(app);
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://voxafrontend.vercel.app"
+  "https://voxafrontend-i2xc.vercel.app"
 ];
 
 const io = new Server(server, {

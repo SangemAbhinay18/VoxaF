@@ -16,7 +16,7 @@ app.use(express.json({ limit: '10mb' }));
 app.use(cookieParser());
 const allowedOrigins = [
   "http://localhost:5173",                     // local dev
-  "https://voxafrontend.vercel.app",         // production domain
+  "https://voxafrontend-i2xc.vercel.app",         // production domain
 ];
 
 app.use(cors({
