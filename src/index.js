@@ -16,7 +16,7 @@ app.use(express.json({ limit: '10mb' }));
 app.use(cookieParser());
 const allowedOrigins = [
   "http://localhost:5173",                     // local dev
-  "https://chat-six-tan-53.vercel.app/login",         // production domain
+  "https://voxafrontend.vercel.app/",         // production domain
 ];
 
 app.use(cors({

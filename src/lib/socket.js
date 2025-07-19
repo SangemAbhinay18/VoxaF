@@ -9,7 +9,7 @@ const io = new Server(server, {
   cors: {
     origin: [
       "http://localhost:5173",                  // Dev frontend
-      "https://chat-six-tan-53.vercel.app"     // ✅ Your Vercel frontend
+      "https://voxafrontend.vercel.app/"     // ✅ Your Vercel frontend
     ],
     credentials: true                          // ✅ Allow cookies if needed
   }
