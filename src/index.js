@@ -16,7 +16,7 @@ app.use(express.json({ limit: '10mb' }));
 app.use(cookieParser());
 const allowedOrigins = [
   "http://localhost:5173",                     // local dev
-  "https://voxafrontend.vercel.app/",         // production domain
+  "https://voxafrontend.vercel.app",         // production domain
 ];
 
 app.use(cors({
@@ -28,12 +28,6 @@ app.use(cors({
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
-// if(process.env.NODE_ENV==="production") {
-//     app.use(express.static(path.join(__dirname, "../frontend/dist")));
-//     app.get("*", (req, res) => {
-//         res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
-//     })
-// }
 
 app.get("/", (req, res) => {
   res.send("✅ Voxa backend is running!");
