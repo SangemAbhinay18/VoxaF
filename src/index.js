@@ -35,6 +35,10 @@ app.use("/api/messages", messageRoutes);
 //     })
 // }
 
+app.get("/", (req, res) => {
+  res.send("✅ Voxa backend is running!");
+});
+
 const port = process.env.PORT || 3000;
 server.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
