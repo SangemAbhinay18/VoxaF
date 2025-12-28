@@ -12,30 +12,29 @@ dotenv.config();
 
 const __dirname = path.resolve();
 
-//Middlewares
-app.use(express.json({ limit: '10mb' }));
+// Middlewares FIRST
+app.use(express.json({ limit: "10mb" }));
 app.use(cookieParser());
+
 const allowedOrigins = [
-  "http://localhost:5173",                     // local dev
-  "https://voxachats.vercel.app/",         // production domain
+  "http://localhost:5173",
+  "https://voxachats.vercel.app",
 ];
 
 app.use(cors({
-  origin: allowedOrigins,
-  credentials: true
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(null, false);
+    }
+  },
+  credentials: true,
 }));
 
-//Routes
+
+app.options("*", cors());
+
+// Routes AFTER CORS
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
-
-
-app.get("/", (req, res) => {
-  res.send("✅ Voxa backend is running!");
-});
-
-const port = process.env.PORT || 3000;
-server.listen(port, () => {
-    console.log(`Server is running on port: ${port}`);
-    connectDB();
-});
