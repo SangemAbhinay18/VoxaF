@@ -7,6 +7,7 @@ import { connectDB } from "./lib/db.js";
 import authRoutes from "./routes/auth.route.js";
 import messageRoutes from "./routes/message.route.js";
 import { app, server } from "./lib/socket.js";
+
 dotenv.config();
 
 const __dirname = path.resolve();
@@ -16,7 +17,7 @@ app.use(express.json({ limit: '10mb' }));
 app.use(cookieParser());
 const allowedOrigins = [
   "http://localhost:5173",                     // local dev
-  "https://voxafrontend-i2xc.vercel.app",         // production domain
+  "https://voxachats.vercel.app/",         // production domain
 ];
 
 app.use(cors({

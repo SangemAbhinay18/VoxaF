@@ -16,7 +16,6 @@ const messageSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
-    // Optional if you support image/file messages later
     fileUrl: {
       type: String,
       default: null,
@@ -27,9 +26,11 @@ const messageSchema = new mongoose.Schema(
       default: "sent",
     },
   },
-  { timestamps: true } // adds createdAt + updatedAt automatically
+  { timestamps: true }
 );
 
-const Message = mongoose.model("Message", messageSchema);
+// ✅ Prevent model overwrite error during hot reload
+const Message =
+  mongoose.models.Message || mongoose.model("Message", messageSchema);
 
 export default Message;
